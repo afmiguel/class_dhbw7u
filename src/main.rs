@@ -24,8 +24,9 @@ fn main() {
         sibling: None,
     }));
 
-    i1.borrow_mut().sibling = Some(i2);
+    i1.borrow_mut().sibling = Some(Rc::clone(&i2));
+    i2.borrow_mut().sibling = Some(Rc::clone(&i1));
 
-    println!("The value of field1 is: {}", i1.data);
-    println!("The value of field1 is: {}", i2.data);
+    println!("The value of field1 is: {}", i1.borrow().data);
+    println!("The value of field1 is: {}", i2.borrow().data);
 }
