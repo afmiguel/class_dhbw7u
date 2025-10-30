@@ -31,7 +31,12 @@ fn main() {
     println!("The value of field1 is: {}", i2.borrow().data);
 
     match &i1.borrow().sibling{
-        Some(w) => {},
+        Some(w) => {
+            match w.upgrade(){
+                Some(rc) => {},
+                None => println!("O irmão de i1 foi dropado!")
+            }
+        },
         None => println!("i1 não tem irmão!") 
     }
 }
